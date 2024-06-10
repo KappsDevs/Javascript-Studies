@@ -27,41 +27,46 @@ function writeLog(operationIdentifier, prevResult, operationNumber,newResult){
     console.log(logEntries);
 }
 
-function add(){
+function calculateResult(calculationType){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
-    currentResult = currentResult + enteredNumber;
-    createAndWriteOutput("+",initialResult, enteredNumber);
-    
-    writeLog("ADD", initialResult, enteredNumber, currentResult);
+    let mathOperator;
+    if(calculationType === "ADD"){
+        currentResult = currentResult + enteredNumber;
+        mathOperator = "+";
+    }else if(calculationType === "SUB"){
+        currentResult = currentResult - enteredNumber;
+        mathOperator = "-";
+    }else if(calculationType === "DIV"){
+        currentResult = currentResult / enteredNumber;
+        mathOperator = "/";
+    } else{
+        currentResult = currentResult * enteredNumber;
+        mathOperator = "*";
+    }
+
+    createAndWriteOutput(mathOperator,initialResult, enteredNumber);
+    writeLog(calculationType, initialResult, enteredNumber, currentResult);
+}
+
+
+function add(){
+   calculateResult("ADD");
 }
 
 function sub(){
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult - enteredNumber;
-    createAndWriteOutput("-", initialResult, enteredNumber);
-    writeLog("SUB", initialResult, enteredNumber, currentResult);
-
-}
-
-function mul(){
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult * enteredNumber;
-    createAndWriteOutput("*", initialResult, enteredNumber);
-    writeLog("MUL", initialResult, enteredNumber, currentResult);
-
+    calculateResult("SUB");
 }
 
 function div(){
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult / enteredNumber;
-    createAndWriteOutput("/", initialResult, enteredNumber);
-    writeLog("DIV", initialResult, enteredNumber, currentResult);
-
+    calculateResult("DIV");
 }
+
+function mul(){
+    calculateResult("MUL")
+}
+
+
 
 addBtn.addEventListener("click", add);  
 subtractBtn.addEventListener("click", sub);
